@@ -1,7 +1,7 @@
 TO LAUNCH AN AWS EC2 INSTANCE
 Step 1:Create your account on amazon aws using root or IAM user.
 Step 2:Select region (Asia Pacific Mumbai).
-Step 3:open EC2 services and click on instances.
+Step 3:Open EC2 services and click on instances.
 Step 4:Name your instance and select window O.S.
 Step 5:Select instances types (select t2.micro ).
 Step 6:Now create your key pair name (key pair type should be RSA and and format .pem).
