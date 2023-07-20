@@ -1,0 +1,35 @@
+CREATE AN S3 BUCKET
+Step1: Navigate to the Services menu at the top. Click on S3 in the Storage section.
+Step2: On the S3 dashboard, click on Create bucket button.
+//Enter Bucket Name e.g, testdemo.
+//Note:- S3 bucket names are globally unique, choose a name that is available.
+//Object ownership:-Select ACLs disabled (recommended) option
+//Leave other settings as default.
+Step3: In the option of Bucket settings for Block Public Access, Uncheck the option of Block all public access. And, Acknowledge the same by checking the below option
+Step4: Click on the Create bucket button.
+Step5: Ignore any type of warnings.
+
+UPLOAD AN OBJECT 
+Step1: Click on the bucket name and click on Upload button.
+Step2: Click on the Add files button.
+Step3: Select the file which you want to upload.
+//Click on the Upload button.
+//You can watch the progress of the upload from within the transfer panel at the bottom of the screen. Since this is a very small file, you might not see the transfer. Once your file has been uploaded, it will be displayed in the bucket.
+Step4: Access the object on the browser.
+Step5: Change S3 object permissions.
+Step6: Setup the bucket policy and permission and test the object accessibility.
+
+//Generate bucket policy from policy generator option, to make all objects publically accessible.
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1",
+    "Statement": [
+        {
+            "Sid": "Stmt1",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::testdemo/*"
+        }
+    ]
+}
