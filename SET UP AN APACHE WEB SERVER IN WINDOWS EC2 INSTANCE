@@ -25,4 +25,4 @@ Step 6:Run command 'httpd -k install'.
 //Now Apache server is installed successfully.
 Step 7:Go to services, click on Apache 2.4 then start the service.
 Step 8:Open browser search localhost '127.0.0.1' .
-//It shows "It works !".
+//It shows "It works!".
