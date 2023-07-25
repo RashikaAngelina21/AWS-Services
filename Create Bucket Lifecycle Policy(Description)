@@ -1,0 +1,42 @@
+CREATE AN S3 BUCKET 
+Step1:Navigate to the Services menu at the top. Click on S3 in the Storage section.
+Step2:On the S3 dashboard, click on Create bucket button.
+//Bucket name: Enter abcxyz
+//Note:- S3 bucket names are globally unique, choose a name that is available.
+//Object ownership: Select ACLs disabled (recommended) option
+//Leave other settings as default.
+Step3:Click on the Create bucket button.
+Step4:Ignore any type of warnings.
+
+UPLOAD AN OBJECT 
+Step1:Click on the bucket name and click on Upload button.
+Step2:Upload any file from your machine or sample.txt file.
+Step3:Click on the Add files button.
+Step4:Browse for our sample.txt file or the file you've chosen instead.
+//Click on the Upload button.
+//You can watch the progress of the upload from within the transfer panel at the bottom of the screen. Since this is a very small file, you might not see the transfer. Once your file has been uploaded, it will be displayed in the bucket.
+Step5:Access the object on the browser.
+Step6:Click on the Close button on the Top Right corner of the page.
+
+CREATING A LIFECYCLE RULE
+//The rule includes storage class transitions and automatic deletion of expired objects and incomplete multipart uploads. By following the steps, you can create and enable a rule that will manage your objects according to your requirements.
+Step1:Click on the Management tab.
+Step2:Under the Lifecycle rules, click on Create lifecycle rule to create a Lifecycle rule for the uploaded object.
+Step3:Lifecycle rule name: Enter rhizlabrule
+Step4:Choose a rule scope: Select Apply to all objects in the bucket and Acknowledge the checkbox
+Step5:Under Lifecycle rule action: Select the following checkboxes
+Step6:For Transition current versions of objects between storage classes section,
+//Choose storage class transitions: Select One zone- IA
+//Days after object creation: Enter 30
+//Click on Add transition button
+//Choose storage class transitions: Select Glacier Flexible Retrieval (formerly Glacier)
+//Days after object creation: Enter 90
+//Acknowledge the checkbox. 
+Step7:Set for Expire current versions of objects section,
+//Days after object creation: Enter 120
+//In this option, you are specifying that after 120 days, the objects will be expired (deleted automatically).
+Step8:For Delete expired object delete markers or incomplete multipart uploads Section
+//For Incomplete multipart uploads: Check the option of Delete incomplete multipart uploads
+//Number of days: Enter 90
+Step9:Finally, review the transitions and click on Create rule button.
+//Now a Lifecycle Rule has been created and is in the enabled state.
