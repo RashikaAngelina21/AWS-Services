@@ -1,0 +1,69 @@
+SIGN IN TO AWS MANAGEMENT CONSOLE
+Step1.  Click on the Open Console button, and you will get redirected to AWS Console in a new browser tab.
+Step2.  On the AWS sign-in page,
+//Leave the Account ID as default. Never edit/remove the 12-digit Account ID present in the AWS Console. Otherwise, you cannot proceed with the lab.
+//Now copy your Username and Password in the Lab Console to the IAM Username and Password in AWS Console and click on the Sign-in button.
+Step3.  Once Signed In to the AWS Management Console, make the default AWS Region as US East (N. Virginia) us-east-1.
+
+CREATING LAUNCH TEMPLATE
+Step1.	Make sure you are in the US East (N. Virginia) us-east-1 Region before proceeding with the Lab.
+Step2.	Navigate to EC2 by clicking on the Services menu in the top, then click on EC2 in the Compute section.
+Step3.	In the left navigation menu, scroll down to Launch Templates and click on Create launch template button.
+//Launch template name: Enter whizlabsLT
+//Template version description: Enter Launch template version
+//Amazon machine image (AMI): Select Amazon Linux 2 AMI
+//Instance type: Select t2.micro
+//Key pair name: Don't include in launch template 
+//Security groups: Select the Default security group of Default VPC
+Step4.  Keep all the settings as default.
+Step5.  Click on Create launch template button.
+//Launch template is now created.
+Step6.	Click on the View launch template button. 
+//Launch template is now listed.
+
+CREATE AN AUTO SCALING GROUP
+//An Auto Scaling group is a scalable collection of EC2 instances. When you create an Auto Scaling group, you include information such as the subnets for the instances and the number of instances the group must maintain at all times.
+Step1.	Go to the left menu under EC2 and choose Auto Scaling Group.
+Step2.	Click on the Create Auto Scaling group button.
+Step3.  Choose launch template or configuration.
+//Auto Scaling group name: Enter whiz-ASG
+//Launch template: Select whizlabsLT
+Step4.  Click on the Next button.
+//VPC: Select the Default VPC from the list.
+//Subnet: Select all the subnets.
+//Click on the Next button.
+Step5.  Configure advanced options.
+//No changes are needed on this page, click on the Next button.
+Step6. Configure group size and scaling policies.
+//Under Group size – optional
+//Desired capacity: Enter 2
+//Minimum capacity: Enter 1
+//Maximum capacity: Enter 3
+//Under Scaling policies – optional
+//Select None
+//Under Instance scale-in protection
+//No changes are needed, click on the Next button 
+Step7. Add notifications.
+//No changes are needed on this page, click on the Next button. 
+Step8. Add tags
+//Enter tags in key-value pairs to identify your auto-scaling group.
+//Click on the Add tag button.
+//Key: Name
+//Value: ASG-EC2 
+//Click on the Next button.
+Step9.	Now scroll down and click on the Create Auto Scaling group button.
+Step10.	Whiz-ASG Auto scaling is created successfully.
+Step11.	You will be redirected to the autoscaling group page, you will be able to see that two instances are launched by the autoscaling group.
+Step12.	Now go to the EC2 instances list. You will see that there are two new running instances (which were created by your autoscaling group) You can confirm this from their tag name, which you gave at the time of creating the autoscaling group.
+Step13.	You have successfully created an autoscaling group with a policy of a minimum of 1 and a maximum of 3 instances.
+
+TEST AUTO SCALING GROUP
+Step1.	For testing the auto-scaling policy, go to the EC2 instance list and select one of your instances.
+Step2.	Next, select an instance and click on Instance state and then Stop instance.
+Step3.	Click the Stop button on the pop-up window to stop your instance.
+Step4.	Once your instance is stopped (after 1-2 minutes) you can see that your stopped instance will be terminating automatically, and a new instance will be launched to fulfill the policy condition. 
+//Note: Launching a new instance may take a few minutes, you can refresh the page to view the new instance.
+
+
+
+
