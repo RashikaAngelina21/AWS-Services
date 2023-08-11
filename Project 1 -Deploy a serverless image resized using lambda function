@@ -1,0 +1,87 @@
+Deploy a serverless image resizer using aws lambda function
+STEP 1. CREATE 2 S3 BUCKETS FOR STORING THE UPLOADED IMAGE AND RESIZED IMAGE~
+Sign in to AWS Console
+Open S3 Console
+Configure the properties of your bucket
+Set Permissions
+Review and Create
+Bucket Created
+STEP 2.CREATE A LAMBDA FUNCTION~
+Open Lambda Console
+Create Function
+Configure Basic Information
+Function Code
+Click "Create Function“
+Function Created
+STEP3. CONFIGURE LAMBDA TRIGGER~
+Open Lambda Console
+Select Your Function
+Add Trigger
+Choose Trigger Type
+Amazon S3
+Configure Trigger Details
+Enable Trigger
+Add Permissions (if required)
+Testing and Monitoring
+STEP 4.WRITE THE RESIZING CODE~
+Install Pillow in a Local Environment
+Lambda function code that resizes an image when triggered by an S3 object creation event
+Deploy the Lambda Function
+Testing and Monitoring
+STEP 5. SET LAMBDA IAM ROLE PERMISSIONS~
+Open IAM Console
+Create or Select a Role
+Add Permissions-AmazonS3FullAccess,AWSLambda_FullAccess
+Review the permissions that the role will have.
+Name and Create Role
+Attach Role to Lambda Function
+Permissions Tab
+Execution Role
+Save Changes
+STEP 6. TESTING AND DEBUGGING~
+Check Destination S3 Bucket : After the Lambda function executes, check the destination S3 bucket where the resized images should be saved . You should find a resized version of the uploaded image in the specified location (e.g., "resized/" folder).
+https://esanskriti02.s3.ap-south-1.amazonaws.com/image1.jpg
+Download and Inspect Resized Image : Download the resized image from the destination S3 bucket to your local machine . Open the resized image using an image viewer to verify that it has been properly resized.
+https://esanskriti02resize.s3.ap-south-1.amazonaws.com/image1_resized.jpg
+lambda function code for resizing an image
+
+import os
+import boto3
+from io import BytesIO
+from PIL import Image
+
+s3 = boto3.client('s3')
+
+def lambda_handler(event, context):
+    # Retrieve the bucket and object key from the event
+    source_bucket = event['Records'][0]['s3']['bucket']['name']
+    key = event['Records'][0]['s3']['object']['key']
+    
+    # Specify the destination bucket where you want to save the resized image
+    destination_bucket = 'esanskritiresize'
+    
+    try:
+        # Download the image from S3
+        response = s3.get_object(Bucket=source_bucket, Key=key)
+        image = Image.open(BytesIO(response['Body'].read()))
+        
+        # Resize the image to a desired width and height
+        new_width = 300
+        new_height = 200
+        resized_image = image.resize((new_width, new_height))
+        
+        # Save the resized image to a new S3 object in the destination bucket
+        resized_key = os.path.splitext(key)[0] + '_resized.jpg'
+        output_buffer = BytesIO()
+        resized_image.save(output_buffer, format="JPEG")
+        s3.put_object(Bucket=destination_bucket, Key=resized_key, Body=output_buffer.getvalue())
+        
+        return {
+            'statusCode': 200,
+            'body': 'Image resized and saved successfully.'
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': f'Error: {str(e)}'
+        }
